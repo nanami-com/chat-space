@@ -12,12 +12,21 @@
 ## groupsテーブル
 |Column|Type|Options|
 |------|----|-------|
-|title|text|null: false|
-|text|text|null: false|
+|group_name|text|null: false|
+|group_member|text|null: false|
 |user_id|integer|null: false, foreign_key: true|
 ### Association
 - belongs_to :user
-- has_many :comments
-- has_many :posts_tags
-- has_many  :tags,  through:  :posts_tags
+
+## messagesテーブル
+|Column|Type|Options|
+|------|----|-------|
+|body|text|null: false|
+|image|string|null: false|
+|group_id|integer|null: false|
+|user_id|integer|null: false|
+### Association
+- belong_to :user
+- belong_to :group
+- has_many  :posts,  through:  :posts_tags
 
