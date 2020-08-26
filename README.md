@@ -6,18 +6,35 @@
 |password|string|null: false|
 |username|string|null: false|
 ### Association
-- has_many :groups
+- has_many :groups , through: :users_groups
 - has_many :messages
+
 
 ## groupsテーブル
 |Column|Type|Options|
 |------|----|-------|
-|group_name|text|null: false|
-|group_member|text|null: false|
-|user_id|integer|null: false, foreign_key: true|
+|name|string|null: false|
 ### Association
 - has_many :messages
-- has_many :user, through : :users_groups 
+- has_many :user, through : :users_groups
+- has_many :member, through : :members_groups
+
+## membersテーブル
+|Column|Type|Options|
+|------|----|-------|
+|name|string|null: false|
+### Association
+- has_many :groups , through: :members_groups
+
+## members_groupsテーブル
+|Column|Type|Options|
+|------|----|-------|
+|member_id|integer|null: false, foreign_key: true|
+|group_id|integer|null: false, foreign_key: true|
+### Association
+- belongs_to :member
+- belongs_to :group
+
 
 ## users_groupsテーブル
 |Column|Type|Options|
@@ -28,16 +45,14 @@
 - belongs_to :user
 - belongs_to :group
 
-
 ## messagesテーブル
 |Column|Type|Options|
 |------|----|-------|
-|body|text|null: false|
-|image|string|null: false|
-|group_id|integer|null: false|
-|user_id|integer|null: false|
+|body|text||
+|image|string||
+|group_id|integer||
+|user_id|integer||
 ### Association
 - belong_to :user
 - belong_to :group
-- has_many  :posts,  through:  :posts_tags
 
